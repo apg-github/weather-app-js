@@ -147,7 +147,7 @@ const addWeatherBox = (data, name) => {
     );
     num++;
   });
-  app.appendChild(cln);
+  app.insertBefore(cln, app.children[1]);
 };
 
 //! function to update images while starting application
@@ -193,19 +193,22 @@ function UpdateWeekdays() {
   });
 }
 //! function to obtain new city and display new forecast
-let subButton = document.querySelector("#search-btn");
-let searchInput = document.querySelector("#search");
-searchInput.addEventListener("keypress", function(event) {
-  if (event.keyCode == 13) {
-    event.preventDefault();
+
+window.addEventListener("DOMContentLoaded", event => {
+  let subButton = document.querySelector("#search-btn");
+  let searchInput = document.querySelector("#search");
+  searchInput.addEventListener("keypress", e => {
+    if (e.keyCode == 13) {
+      e.preventDefault();
+      newCityForecast();
+    }
+  });
+  subButton.addEventListener("click", e => {
+    e.preventDefault();
     newCityForecast();
-  }
-});
-subButton.addEventListener("click", e => {
-  e.preventDefault();
-  newCityForecast();
-});
-let originBoxDeleteKey = document.querySelector("#origin-box-delete");
-originBoxDeleteKey.addEventListener("click", () => {
-  originBoxDeleteKey.parentElement.hidden = true;
+  });
+  let originBoxDeleteKey = document.querySelector("#origin-box-delete");
+  originBoxDeleteKey.addEventListener("click", () => {
+    originBoxDeleteKey.parentElement.hidden = true;
+  });
 });
