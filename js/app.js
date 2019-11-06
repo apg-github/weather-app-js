@@ -21,9 +21,7 @@ const removeLoadingPage = () => body.classList.remove("loading");
 const locateUser = async () => {
   try {
     addLoadingPage();
-    const response = await fetch(
-      "https://cors-anywhere.herokuapp.com/http://ip-api.com/json"
-    );
+    const response = await fetch("http://ip-api.com/json");
     const data = await response.json();
     let { lat, lon } = data;
     const apiKey = "703a3af8f6c99dde6d1e12e0cc2484af";
@@ -205,8 +203,9 @@ originBoxDeleteKey.addEventListener("click", () => {
 });
 
 const newAPI = async () => {
-  const ap = await fetch("https://ipgeolocation.com?json=1");
-  console.log(ap);
+  const fetch = await fetch("https://api.ipgeolocationapi.com/geolocate");
+  const data = await fetch.json();
+  console.log(fetch);
+  console.log(data);
 };
-
 newAPI();
