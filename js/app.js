@@ -21,14 +21,16 @@ const removeLoadingPage = () => body.classList.remove("loading");
 const locateUser = async () => {
   try {
     addLoadingPage();
-    const response = await fetch("http://ip-api.com/json");
+    const response = await fetch(
+      "https://api.ipgeolocation.io/ipgeo?apiKey=015c9e6c6d6e44358b28e71a71af12b3"
+    );
     const data = await response.json();
-    let { lat, lon } = data;
+    const { latitude, longitude } = data;
     const apiKey = "703a3af8f6c99dde6d1e12e0cc2484af";
     const darkSkyAPI =
       "https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/";
     const response2 = await fetch(
-      `${darkSkyAPI}/${apiKey}/${lat},${lon}?units=si&exclude=minutely,hourly,alerts,flags&lang=pl`
+      `${darkSkyAPI}/${apiKey}/${latitude},${longitude}?units=si&exclude=minutely,hourly,alerts,flags&lang=pl`
     );
     const weatherObj = await response2.json();
     //console.log(weatherObj);
@@ -173,13 +175,13 @@ function updateTemp(restTemp) {
 function UpdateWeekdays() {
   let daysToInsert = document.querySelectorAll(".day");
   var weekdays = [
-    "Niedziela",
-    "Poniedzialek",
-    "Wtorek",
-    "Środa",
-    "Czwartek",
-    "Piatek",
-    "Sobota"
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday"
   ];
   const dayNowNum = new Date().getDay();
   let i = dayNowNum;
@@ -201,11 +203,3 @@ let originBoxDeleteKey = document.querySelector("#origin-box-delete");
 originBoxDeleteKey.addEventListener("click", () => {
   originBoxDeleteKey.parentElement.hidden = true;
 });
-
-const newAPI = async () => {
-  const fetch = await fetch("https://api.ipgeolocationapi.com/geolocate");
-  const data = await fetch.json();
-  console.log(fetch);
-  console.log(data);
-};
-newAPI();

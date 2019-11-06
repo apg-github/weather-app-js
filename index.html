@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Weather App</title>
+    <title>APG Weather App</title>
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
@@ -12,25 +12,24 @@
       <div class="container">
         <div class="logo"><img src="images/icons/logo.svg" /> Weather app</div>
         <button class="btn" id="add-city">
-          Dodaj miasto <i class="material-icons">add_circle</i>
+          Add city <i class="material-icons">add_circle</i>
         </button>
       </div>
     </header>
 
     <section id="app" class="container">
-      <!-- Moduł wyszukiwarki - domyślnie ukryty -->
       <div class="module module__form find-city" hidden>
         <button class="btn btn--icon btn--close btn-close-find">
           <i class="material-icons">close</i>
         </button>
-        <h2>Znajdź miasto</h2>
+        <h2>Find city</h2>
 
         <form novalidate autocomplete="off" class="find-city">
           <input
             type="text"
             name="search"
             id="search"
-            placeholder="np. Wrocław"
+            placeholder="for example Warsaw"
           />
           <button id="search-btn" type="button">
             <i class="material-icons">search</i>
@@ -52,9 +51,6 @@
           <div class="weather__info">
             <div class="city">
               <span class="city__name"></span>
-              <span class="btn btn--icon"
-                ><i class="material-icons">edit</i></span
-              >
             </div>
             <div class="temperature">
               <span class="temperature__value main-temp"></span>&deg;C
