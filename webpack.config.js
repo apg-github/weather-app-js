@@ -1,6 +1,5 @@
 const path = require("path");
 const autoprefixer = require("autoprefixer");
-//const entryPath = "app";
 const entryFile = "app.js";
 
 module.exports = {
