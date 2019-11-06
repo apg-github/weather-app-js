@@ -1,12 +1,12 @@
 const path = require("path");
 const autoprefixer = require("autoprefixer");
 const entryFile = "app.js";
-
+console.log(__dirname);
 module.exports = {
   entry: `./js/${entryFile}`,
   output: {
     filename: "out.js",
-    path: path.resolve(__dirname, `/build`)
+    path: path.resolve(__dirname, `build`)
   },
   devServer: {
     contentBase: __dirname,

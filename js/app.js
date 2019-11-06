@@ -71,7 +71,7 @@ const newCityForecast = async () => {
   document.querySelector(".search-error").innerHTML = "";
   if (!input) {
     document.querySelector(".search-error").innerHTML =
-      "Nowa lokalizacja nie może być pusta";
+      "New place could not be empty!";
     return;
   }
   addLoadingPage();
@@ -83,7 +83,7 @@ const newCityForecast = async () => {
     const json = await response.json();
     if (json.hits.length === 0) {
       document.querySelector(".search-error").innerHTML =
-        "Nie można znaleźć takiej lokalizacji";
+        "Certain place could not be found";
     }
     let point = json.hits[0].point;
     const apiKey = "703a3af8f6c99dde6d1e12e0cc2484af";
@@ -194,6 +194,13 @@ function UpdateWeekdays() {
 }
 //! function to obtain new city and display new forecast
 let subButton = document.querySelector("#search-btn");
+let searchInput = document.querySelector("#search");
+searchInput.addEventListener("keypress", function(event) {
+  if (event.keyCode == 13) {
+    event.preventDefault();
+    newCityForecast();
+  }
+});
 subButton.addEventListener("click", e => {
   e.preventDefault();
   newCityForecast();
