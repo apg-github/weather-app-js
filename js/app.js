@@ -85,7 +85,6 @@ const newCityForecast = async () => {
       document.querySelector(".search-error").innerHTML =
         "Nie można znaleźć takiej lokalizacji";
     }
-
     let point = json.hits[0].point;
     const apiKey = "703a3af8f6c99dde6d1e12e0cc2484af";
     const darkSkyAPI =
