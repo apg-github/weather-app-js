@@ -21,7 +21,9 @@ const removeLoadingPage = () => body.classList.remove("loading");
 const locateUser = async () => {
   try {
     addLoadingPage();
-    const response = await fetch("http://ip-api.com/json");
+    const response = await fetch(
+      "https://cors-anywhere.herokuapp.com/http://ip-api.com/json"
+    );
     const data = await response.json();
     let { lat, lon } = data;
     const apiKey = "703a3af8f6c99dde6d1e12e0cc2484af";
@@ -31,7 +33,7 @@ const locateUser = async () => {
       `${darkSkyAPI}/${apiKey}/${lat},${lon}?units=si&exclude=minutely,hourly,alerts,flags&lang=pl`
     );
     const weatherObj = await response2.json();
-    console.log(weatherObj);
+    //console.log(weatherObj);
     document.querySelector(".city__name").innerHTML = data.city;
     document.querySelector(".pressure__value").innerHTML =
       Math.floor(weatherObj.currently.pressure) + " hPa";
@@ -193,8 +195,18 @@ function UpdateWeekdays() {
 }
 //! function to obtain new city and display new forecast
 let subButton = document.querySelector("#search-btn");
-subButton.addEventListener("click", newCityForecast);
+subButton.addEventListener("click", e => {
+  e.preventDefault();
+  newCityForecast();
+});
 let originBoxDeleteKey = document.querySelector("#origin-box-delete");
 originBoxDeleteKey.addEventListener("click", () => {
   originBoxDeleteKey.parentElement.hidden = true;
 });
+
+const newAPI = async () => {
+  const ap = await fetch("https://ipgeolocation.com?json=1");
+  console.log(ap);
+};
+
+newAPI();
