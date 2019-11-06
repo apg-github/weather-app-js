@@ -1,6 +1,7 @@
 const body = document.body;
 const addLoadingPage = () => body.classList.add("loading");
 const removeLoadingPage = () => body.classList.remove("loading");
+
 //!event listeners for add city or remove city div
 (() => {
   const btn = document.querySelector("#add-city");
@@ -69,12 +70,15 @@ locateUser();
 const newCityForecast = async () => {
   let input = document.querySelector("#search").value;
   document.querySelector(".search-error").innerHTML = "";
+
   if (!input) {
     document.querySelector(".search-error").innerHTML =
       "New place could not be empty!";
     return;
   }
+
   addLoadingPage();
+
   try {
     const geoKey = "0d77bc1c-b67d-4885-a89e-b2bc5fe71eee";
     const response = await fetch(
@@ -107,19 +111,21 @@ const addWeatherBox = (data, name) => {
   var itm = document.querySelector(".module__weather");
   var cln = itm.cloneNode(true);
   cln.hidden = false;
+
   cln.childNodes[1].addEventListener("click", () => {
     cln.childNodes[1].parentElement.remove();
   });
+
   cln.children[1].children[0].children[0].setAttribute(
     "src",
     `./images/icons/${data.currently.icon}.svg`
   );
-  //! city name
+
   cln.children[1].children[1].children[0].innerHTML = name;
-  //! temp in city
   cln.children[1].children[1].children[1].innerHTML = Math.floor(
     data.currently.temperature
   );
+
   //! change weather details
   let wDetails = cln.children[1].children[2];
   let wDetailsNums = [
@@ -135,7 +141,6 @@ const addWeatherBox = (data, name) => {
 
   //!change forecast for 5 days
   let lis = cln.children[1].children[3].children;
-  //console.log(lis);
   let num = 0;
   Array.from(lis).forEach(function(child) {
     child.children[1].setAttribute(
@@ -147,6 +152,7 @@ const addWeatherBox = (data, name) => {
     );
     num++;
   });
+
   app.insertBefore(cln, app.children[1]);
 };
 
@@ -161,6 +167,7 @@ function updateImages(mainSrc, restSrc) {
     i++;
   });
 }
+
 //! function to update temp while starting application
 function updateTemp(restTemp) {
   let tempSpans = document.querySelectorAll(".temperature__value");
@@ -170,6 +177,7 @@ function updateTemp(restTemp) {
     i++;
   });
 }
+
 //! function to update weekday names while starting application
 function UpdateWeekdays() {
   let daysToInsert = document.querySelectorAll(".day");
@@ -183,7 +191,6 @@ function UpdateWeekdays() {
     "Saturday"
   ];
   const dayNowNum = new Date().getDay();
-  //console.log(dayNowNum);
   let i = dayNowNum;
   daysToInsert.forEach(span => {
     if (i === 6) {
@@ -195,8 +202,8 @@ function UpdateWeekdays() {
     span.innerHTML = weekdays[i];
   });
 }
-//! function to obtain new city and display new forecast
 
+//! function to obtain new city and display new forecast
 window.addEventListener("DOMContentLoaded", event => {
   let subButton = document.querySelector("#search-btn");
   let searchInput = document.querySelector("#search");
