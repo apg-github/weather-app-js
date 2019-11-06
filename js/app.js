@@ -183,7 +183,7 @@ function UpdateWeekdays() {
     "Saturday"
   ];
   const dayNowNum = new Date().getDay();
-  console.log(dayNowNum);
+  //console.log(dayNowNum);
   let i = dayNowNum;
   daysToInsert.forEach(span => {
     if (i === 6) {
