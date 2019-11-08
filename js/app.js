@@ -13,6 +13,7 @@ const removeLoadingPage = () => body.classList.remove("loading");
   });
   const btnRemoveCity = document.querySelector(".btn-close-find");
   btnRemoveCity.addEventListener("click", () => {
+    document.querySelector("#search").value = "";
     if (!findLocationDiv.hasAttribute("hidden")) {
       findLocationDiv.hidden = true;
     }
@@ -211,11 +212,13 @@ window.addEventListener("DOMContentLoaded", event => {
     if (e.keyCode == 13) {
       e.preventDefault();
       newCityForecast();
+      document.querySelector("#search").value = "";
     }
   });
   subButton.addEventListener("click", e => {
     e.preventDefault();
     newCityForecast();
+    document.querySelector("#search").value = "";
   });
   let originBoxDeleteKey = document.querySelector("#origin-box-delete");
   originBoxDeleteKey.addEventListener("click", () => {
