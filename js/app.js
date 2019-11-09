@@ -101,7 +101,6 @@ const newCityForecast = async () => {
       `${darkSkyAPI}/${apiKey}/${point.lat},${point.lng}?units=si&exclude=minutely,hourly,alerts,flags&lang=pl`
     );
     const json2 = await response2.json();
-    //console.log(json2);
     addWeatherBox(json2, json.hits[0].name);
   } catch (e) {
     console.log(e);
@@ -138,8 +137,10 @@ const addWeatherBox = (data, name) => {
   ];
   wDetails.children[0].children[1].innerHTML =
     Math.floor(wDetailsNums[0]) + " hPa";
-  wDetails.children[1].children[1].innerHTML =
-    (wDetailsNums[1] * 100).toPrecision(2) + " %";
+  wDetailsNums[1] == 1
+    ? (wDetails.children[1].children[1].innerHTML = "100%")
+    : (wDetails.children[1].children[1].innerHTML =
+        (wDetailsNums[1] * 100).toPrecision(2) + " %");
   wDetails.children[2].children[1].innerHTML = wDetailsNums[2] + " m/s";
 
   //!change forecast for 5 days
