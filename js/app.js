@@ -39,9 +39,10 @@ const locateUser = async () => {
     document.querySelector(".city__name").innerHTML = data.city;
     document.querySelector(".pressure__value").innerHTML =
       Math.floor(weatherObj.currently.pressure) + " hPa";
-    console.log(weatherObj.currently.humidity);
-    document.querySelector(".humidity__value").innerHTML =
-      (weatherObj.currently.humidity * 100).toPrecision("3") + " %";
+    weatherObj.currently.humidity == 1
+      ? (document.querySelector(".humidity__value").innerHTML = "100%")
+      : (document.querySelector(".humidity__value").innerHTML =
+          (weatherObj.currently.humidity * 100).toPrecision("2") + " %");
     document.querySelector(".wind-speed__value").innerHTML =
       weatherObj.currently.windSpeed + " m/s";
     let mainSrc = weatherObj.currently.icon;
