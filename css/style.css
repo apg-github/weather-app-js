@@ -416,9 +416,9 @@ h2 {
 }
 div.loading {
   width: 100%;
-  height: calc(100% - 65px);
-  position: absolute;
-  top: 65px;
+  height: 100%;
+  position: fixed;
+  top: 0;
   left: 0;
   display: none;
   justify-content: center;

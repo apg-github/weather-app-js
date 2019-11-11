@@ -1,6 +1,9 @@
-const body = document.body;
-const addLoadingPage = () => body.classList.add("loading");
-const removeLoadingPage = () => body.classList.remove("loading");
+const addLoadingPage = () => {
+  document.getElementsByTagName("body")[0].classList.add("loading");
+};
+const removeLoadingPage = () => {
+  document.getElementsByTagName("body")[0].classList.remove("loading");
+};
 
 //!event listeners for add city or remove city div
 (() => {
