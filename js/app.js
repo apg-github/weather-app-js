@@ -129,7 +129,7 @@ const addWeatherBox = (data, name) => {
   cln.children[1].children[1].children[0].innerHTML = name;
   cln.children[1].children[1].children[1].innerHTML = Math.floor(
     data.currently.temperature
-  );
+  ) + "°C";
 
   //! change weather details
   let wDetails = cln.children[1].children[2];
