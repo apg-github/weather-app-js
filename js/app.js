@@ -67,6 +67,7 @@ const locateUser = async () => {
     updateTemp(restTemp);
   } catch (e) {
     console.log(e);
+    alert("Disable your adblocking software to make forecast work properly")
   }
   removeLoadingPage();
 };
