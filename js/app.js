@@ -1,10 +1,6 @@
-const addLoadingPage = () => {
-  document.getElementsByTagName("body")[0].classList.add("loading");
-};
+import {darkSkyApiKey, geoApiKey, ipLocationApiKey} from "./utils";
+import {addLoadingPage, removeLoadingPage} from "./functions";
 
-const removeLoadingPage = () => {
-  document.getElementsByTagName("body")[0].classList.remove("loading");
-};
 
 //! event listeners for add city or remove city div
 (() => {
@@ -18,6 +14,7 @@ const removeLoadingPage = () => {
   const btnRemoveCity = document.querySelector(".btn-close-find");
   btnRemoveCity.addEventListener("click", () => {
     document.querySelector("#search").value = "";
+    document.querySelector(".search-error").innerHTML = ""
     if (!findLocationDiv.hasAttribute("hidden")) {
       findLocationDiv.hidden = true;
     }
@@ -28,61 +25,60 @@ const locateUser = async () => {
   try {
     addLoadingPage();
 
-    const response = await fetch(
-      "https://api.ipgeolocation.io/ipgeo?apiKey=015c9e6c6d6e44358b28e71a71af12b3"
+    const ipLocationResponse = await fetch(
+      `https://api.ipgeolocation.io/ipgeo?apiKey=${ipLocationApiKey}`
     );
 
-    const data = await response.json();
+    const ipLocationResponseJson = await ipLocationResponse.json();
 
-    const { latitude, longitude } = data;
+    const { latitude, longitude } = ipLocationResponseJson;
 
-    const apiKey = "703a3af8f6c99dde6d1e12e0cc2484af";
+    const darkSkyAPI = "https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/";
 
-    const darkSkyAPI =
-      "https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/";
-
-    const response2 = await fetch(
-      `${darkSkyAPI}/${apiKey}/${latitude},${longitude}?units=si&exclude=minutely,hourly,alerts,flags&lang=pl`
+    const weatherForecastResponse = await fetch(
+      `${darkSkyAPI}/${darkSkyApiKey}/${latitude},${longitude}?units=si&exclude=minutely,hourly,alerts,flags&lang=pl`
     );
 
-    const weatherObj = await response2.json();
+    const weatherForecastResponseJson = await weatherForecastResponse.json();
 
-    document.querySelector(".city__name").innerHTML = data.city;
+    document.querySelector(".city__name").innerHTML = ipLocationResponseJson.city;
     document.querySelector(".pressure__value").innerHTML =
-      Math.floor(weatherObj.currently.pressure) + " hPa";
+      Math.floor(weatherForecastResponseJson.currently.pressure) + " hPa";
 
-    weatherObj.currently.humidity == 1
+    weatherForecastResponseJson.currently.humidity === 1
       ? (document.querySelector(".humidity__value").innerHTML = "100%")
       : (document.querySelector(".humidity__value").innerHTML =
-          (weatherObj.currently.humidity * 100).toPrecision("2") + " %");
+          (weatherForecastResponseJson.currently.humidity * 100).toPrecision("2") + " %");
 
     document.querySelector(".wind-speed__value").innerHTML =
-      weatherObj.currently.windSpeed + " m/s";
+      weatherForecastResponseJson.currently.windSpeed + " m/s";
 
-    let mainSrc = weatherObj.currently.icon;
-    let fc = weatherObj.daily.data;
-    let restSrc = [fc[0].icon, fc[1].icon, fc[2].icon, fc[3].icon, fc[4].icon];
+    let currentIcon = weatherForecastResponseJson.currently.icon;
+    let daily = weatherForecastResponseJson.daily.data;
+    let restIcons = [daily[0].icon, daily[1].icon, daily[2].icon, daily[3].icon, daily[4].icon];
 
-    UpdateWeekdays();
-    updateImages(mainSrc, restSrc);
+    updateWeekdays();
+    updateImages(currentIcon, restIcons);
 
-    let mainTemp = weatherObj.currently.temperature;
+    let mainTemp = weatherForecastResponseJson.currently.temperature;
     let restTemp = [
       mainTemp,
-      fc[0].temperatureHigh,
-      fc[1].temperatureHigh,
-      fc[2].temperatureHigh,
-      fc[3].temperatureHigh,
-      fc[4].temperatureHigh,
+      daily[0].temperatureHigh,
+      daily[1].temperatureHigh,
+      daily[2].temperatureHigh,
+      daily[3].temperatureHigh,
+      daily[4].temperatureHigh,
     ];
+
     updateTemp(restTemp);
   } catch (e) {
-    console.log(e);
-    alert("Disable your adblocking software to make forecast work properly");
+    console.error(e);
+    alert("Disable your adblock software for this site to make forecast work properly");
   }
   removeLoadingPage();
 };
-locateUser();
+
+locateUser()
 
 //! function to fetch new data of user city
 const newCityForecast = async () => {
@@ -98,26 +94,27 @@ const newCityForecast = async () => {
   addLoadingPage();
 
   try {
-    const geoKey = "0d77bc1c-b67d-4885-a89e-b2bc5fe71eee";
     const response = await fetch(
-      `https://graphhopper.com/api/1/geocode?key=${geoKey}&q=${input}`
+      `https://graphhopper.com/api/1/geocode?key=${geoApiKey}&q=${input}`
     );
     const json = await response.json();
+
     if (json.hits.length === 0) {
       document.querySelector(".search-error").innerHTML =
         "Certain place could not be found";
     }
+
     let point = json.hits[0].point;
-    const apiKey = "703a3af8f6c99dde6d1e12e0cc2484af";
+
     const darkSkyAPI =
       "https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/";
 
-    const response2 = await fetch(
-      `${darkSkyAPI}/${apiKey}/${point.lat},${point.lng}?units=si&exclude=minutely,hourly,alerts,flags&lang=pl`
+    const darkSkyForecast = await fetch(
+      `${darkSkyAPI}/${darkSkyApiKey}/${point.lat},${point.lng}?units=si&exclude=minutely,hourly,alerts,flags&lang=en`
     );
-    const json2 = await response2.json();
+    const darkSkyForecastJson = await darkSkyForecast.json();
 
-    addWeatherBox(json2, json.hits[0].name);
+    addWeatherBox(darkSkyForecastJson, json.hits[0].name);
   } catch (e) {
     console.log(e);
   }
@@ -182,9 +179,11 @@ const addWeatherBox = (data, name) => {
 function updateImages(mainSrc, restSrc) {
   let imagesToInsert = document.querySelectorAll(".iconsOfDays");
   let [firstImg, ...images] = imagesToInsert;
-  firstImg.setAttribute("src", `./images/icons/${mainSrc}.svg`);
   let i = 0;
-  images.forEach((img) => {
+
+  firstImg.setAttribute("src", `./images/icons/${mainSrc}.svg`);
+
+  images.forEach(img => {
     img.setAttribute("src", `./images/icons/${restSrc[i]}.svg`);
     i++;
   });
@@ -203,8 +202,8 @@ function updateTemp(restTemp) {
 
 //! function to update weekday names while starting application
 function updateWeekdays() {
-  let daysToInsert = document.querySelectorAll(".day");
-  var weekdays = [
+  const daysToInsert = document.querySelectorAll(".day");
+  const weekdays = [
     "Sunday",
     "Monday",
     "Tuesday",
@@ -234,7 +233,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
   let searchInput = document.querySelector("#search");
 
   searchInput.addEventListener("keypress", (e) => {
-    if (e.keyCode == 13) {
+    if (e.keyCode === 13) {
       e.preventDefault();
       newCityForecast();
       document.querySelector("#search").value = "";
@@ -251,5 +250,6 @@ window.addEventListener("DOMContentLoaded", (event) => {
 
   originBoxDeleteKey.addEventListener("click", () => {
     originBoxDeleteKey.parentElement.hidden = true;
+
   });
 });
