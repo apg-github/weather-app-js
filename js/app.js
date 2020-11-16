@@ -1,11 +1,12 @@
 const addLoadingPage = () => {
   document.getElementsByTagName("body")[0].classList.add("loading");
 };
+
 const removeLoadingPage = () => {
   document.getElementsByTagName("body")[0].classList.remove("loading");
 };
 
-//!event listeners for add city or remove city div
+//! event listeners for add city or remove city div
 (() => {
   const btn = document.querySelector("#add-city");
   const findLocationDiv = document.querySelector(".find-city");
@@ -26,28 +27,38 @@ const removeLoadingPage = () => {
 const locateUser = async () => {
   try {
     addLoadingPage();
+
     const response = await fetch(
       "https://api.ipgeolocation.io/ipgeo?apiKey=015c9e6c6d6e44358b28e71a71af12b3"
     );
+
     const data = await response.json();
+
     const { latitude, longitude } = data;
+
     const apiKey = "703a3af8f6c99dde6d1e12e0cc2484af";
+
     const darkSkyAPI =
       "https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/";
+
     const response2 = await fetch(
       `${darkSkyAPI}/${apiKey}/${latitude},${longitude}?units=si&exclude=minutely,hourly,alerts,flags&lang=pl`
     );
+
     const weatherObj = await response2.json();
-    //console.log(weatherObj);
+
     document.querySelector(".city__name").innerHTML = data.city;
     document.querySelector(".pressure__value").innerHTML =
       Math.floor(weatherObj.currently.pressure) + " hPa";
+
     weatherObj.currently.humidity == 1
       ? (document.querySelector(".humidity__value").innerHTML = "100%")
       : (document.querySelector(".humidity__value").innerHTML =
           (weatherObj.currently.humidity * 100).toPrecision("2") + " %");
+
     document.querySelector(".wind-speed__value").innerHTML =
       weatherObj.currently.windSpeed + " m/s";
+
     let mainSrc = weatherObj.currently.icon;
     let fc = weatherObj.daily.data;
     let restSrc = [fc[0].icon, fc[1].icon, fc[2].icon, fc[3].icon, fc[4].icon];
@@ -62,12 +73,12 @@ const locateUser = async () => {
       fc[1].temperatureHigh,
       fc[2].temperatureHigh,
       fc[3].temperatureHigh,
-      fc[4].temperatureHigh
+      fc[4].temperatureHigh,
     ];
     updateTemp(restTemp);
   } catch (e) {
     console.log(e);
-    alert("Disable your adblocking software to make forecast work properly")
+    alert("Disable your adblocking software to make forecast work properly");
   }
   removeLoadingPage();
 };
@@ -105,13 +116,14 @@ const newCityForecast = async () => {
       `${darkSkyAPI}/${apiKey}/${point.lat},${point.lng}?units=si&exclude=minutely,hourly,alerts,flags&lang=pl`
     );
     const json2 = await response2.json();
+
     addWeatherBox(json2, json.hits[0].name);
   } catch (e) {
     console.log(e);
   }
   removeLoadingPage();
 };
-//! function that creates new module of weather forecast
+
 const addWeatherBox = (data, name) => {
   let app = document.querySelector("#app");
   var itm = document.querySelector(".module__weather");
@@ -128,29 +140,31 @@ const addWeatherBox = (data, name) => {
   );
 
   cln.children[1].children[1].children[0].innerHTML = name;
-  cln.children[1].children[1].children[1].innerHTML = Math.floor(
-    data.currently.temperature
-  ) + "°C";
+  cln.children[1].children[1].children[1].innerHTML =
+    Math.floor(data.currently.temperature) + "°C";
 
-  //! change weather details
   let wDetails = cln.children[1].children[2];
+
   let wDetailsNums = [
     data.currently.pressure,
     data.currently.humidity,
-    data.currently.windSpeed
+    data.currently.windSpeed,
   ];
+
   wDetails.children[0].children[1].innerHTML =
     Math.floor(wDetailsNums[0]) + " hPa";
+
   wDetailsNums[1] == 1
     ? (wDetails.children[1].children[1].innerHTML = "100%")
     : (wDetails.children[1].children[1].innerHTML =
         (wDetailsNums[1] * 100).toPrecision(2) + " %");
+
   wDetails.children[2].children[1].innerHTML = wDetailsNums[2] + " m/s";
 
   //!change forecast for 5 days
   let lis = cln.children[1].children[3].children;
   let num = 0;
-  Array.from(lis).forEach(function(child) {
+  Array.from(lis).forEach((child) => {
     child.children[1].setAttribute(
       "src",
       `./images/icons/${data.daily.data[num].icon}.svg`
@@ -170,7 +184,7 @@ function updateImages(mainSrc, restSrc) {
   let [firstImg, ...images] = imagesToInsert;
   firstImg.setAttribute("src", `./images/icons/${mainSrc}.svg`);
   let i = 0;
-  images.forEach(img => {
+  images.forEach((img) => {
     img.setAttribute("src", `./images/icons/${restSrc[i]}.svg`);
     i++;
   });
@@ -180,14 +194,15 @@ function updateImages(mainSrc, restSrc) {
 function updateTemp(restTemp) {
   let tempSpans = document.querySelectorAll(".temperature__value");
   let i = 0;
-  tempSpans.forEach(el => {
+
+  tempSpans.forEach((el) => {
     el.innerHTML = Math.floor(restTemp[i]);
     i++;
   });
 }
 
 //! function to update weekday names while starting application
-function UpdateWeekdays() {
+function updateWeekdays() {
   let daysToInsert = document.querySelectorAll(".day");
   var weekdays = [
     "Sunday",
@@ -196,15 +211,17 @@ function UpdateWeekdays() {
     "Wednesday",
     "Thursday",
     "Friday",
-    "Saturday"
+    "Saturday",
   ];
+
   const dayNowNum = new Date().getDay();
+
   let i = dayNowNum;
-  daysToInsert.forEach(span => {
+  daysToInsert.forEach((span) => {
     if (i === 6) {
       i = 0;
       span.innerHTML = weekdays[i];
-      return null;
+      return;
     }
     i++;
     span.innerHTML = weekdays[i];
@@ -212,22 +229,26 @@ function UpdateWeekdays() {
 }
 
 //! function to obtain new city and display new forecast
-window.addEventListener("DOMContentLoaded", event => {
+window.addEventListener("DOMContentLoaded", (event) => {
   let subButton = document.querySelector("#search-btn");
   let searchInput = document.querySelector("#search");
-  searchInput.addEventListener("keypress", e => {
+
+  searchInput.addEventListener("keypress", (e) => {
     if (e.keyCode == 13) {
       e.preventDefault();
       newCityForecast();
       document.querySelector("#search").value = "";
     }
   });
-  subButton.addEventListener("click", e => {
+
+  subButton.addEventListener("click", (e) => {
     e.preventDefault();
     newCityForecast();
     document.querySelector("#search").value = "";
   });
+
   let originBoxDeleteKey = document.querySelector("#origin-box-delete");
+
   originBoxDeleteKey.addEventListener("click", () => {
     originBoxDeleteKey.parentElement.hidden = true;
   });
