@@ -1,16 +1,14 @@
 import {
   darkSkyApiKey,
-  geoApiKey,
-  ipLocationApiKey,
+  ipLocationAPI,
   darkSkyAPI,
   updateTemp,
   updateWeekdays,
   updateImages,
-  graphHopperAPI,
 } from "./utils";
 import { addLoadingPage, removeLoadingPage } from "./functions";
 import { retrieveUserGeolocationFromBrowser } from "./locationFromBrowser";
-import { addWeatherBox } from "./addWeatherBox";
+import { newCityForecast } from "./newForecast";
 
 const userGeo = retrieveUserGeolocationFromBrowser();
 
@@ -18,9 +16,7 @@ const locateUser = async () => {
   try {
     addLoadingPage();
 
-    const ipLocationResponse = await fetch(
-      `https://cors-anywhere.herokuapp.com/https://api.ipgeolocation.io/ipgeo?apiKey=${ipLocationApiKey}`
-    );
+    const ipLocationResponse = await fetch(ipLocationAPI);
 
     const ipLocationResponseJson = await ipLocationResponse.json();
 
@@ -46,8 +42,8 @@ const locateUser = async () => {
     document.querySelector(".wind-speed__value").innerHTML =
       currently.windSpeed + " m/s";
 
-    const currentWeatherIcon = currently.icon;
-    const otherDayWeatherIcons = [
+    const forecastWeatherIcons = [
+      currently.icon,
       daily.data[0].icon,
       daily.data[1].icon,
       daily.data[2].icon,
@@ -65,7 +61,7 @@ const locateUser = async () => {
     ];
 
     updateWeekdays();
-    updateImages(currentWeatherIcon, otherDayWeatherIcons);
+    updateImages(forecastWeatherIcons);
     updateTemp(forecastTemperature);
     removeLoadingPage();
   } catch (e) {
@@ -74,44 +70,6 @@ const locateUser = async () => {
 };
 
 locateUser();
-
-const newCityForecast = async () => {
-  const input = document.querySelector("#search").value;
-  document.querySelector(".search-error").innerHTML = "";
-
-  if (!input) {
-    document.querySelector(".search-error").innerHTML =
-      "Forecast for empty place could not be retrieved!";
-    return;
-  }
-
-  addLoadingPage();
-
-  try {
-    const response = await fetch(`${graphHopperAPI}&q=${input}`);
-    const json = await response.json();
-
-    if (json.hits.length === 0) {
-      document.querySelector(".search-error").innerHTML =
-        "Certain place could not be found";
-    }
-
-    let point = json.hits[0].point;
-
-    const darkSkyAPI =
-      "https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/";
-
-    const darkSkyForecast = await fetch(
-      `${darkSkyAPI}/${darkSkyApiKey}/${point.lat},${point.lng}?units=si&exclude=minutely,hourly,alerts,flags&lang=en`
-    );
-    const darkSkyForecastJson = await darkSkyForecast.json();
-
-    addWeatherBox(darkSkyForecastJson, json.hits[0].name);
-  } catch (e) {
-    console.log(e);
-  }
-  removeLoadingPage();
-};
 
 window.addEventListener("DOMContentLoaded", () => {
   const addNewPlaceButton = document.querySelector("#add-city");
