@@ -2,7 +2,7 @@ import {
   darkSkyApiKey,
   ipLocationAPI,
   darkSkyAPI,
-  updateTemp,
+  updateTemp as updateTemperature,
   updateWeekdays,
   updateImages,
 } from "./utils";
@@ -62,7 +62,7 @@ const locateUser = async () => {
 
     updateWeekdays();
     updateImages(forecastWeatherIcons);
-    updateTemp(forecastTemperature);
+    updateTemperature(forecastTemperature);
     removeLoadingPage();
   } catch (e) {
     console.error(e);

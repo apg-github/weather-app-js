@@ -24,6 +24,7 @@ export const newCityForecast = async () => {
     if (specifiedPlaceApiResponseJson.hits.length === 0) {
       document.querySelector(".search-error").innerHTML =
         "Certain place could not be found, try again with another or check spelling";
+      throw new Error();
     }
 
     // hits[0] means we choose returned place option that best fits the searched input value
@@ -36,8 +37,8 @@ export const newCityForecast = async () => {
     const weatherForecastResponseJson = await weatherForecastResponse.json();
 
     addWeatherBox(weatherForecastResponseJson, name);
-    removeLoadingPage();
   } catch (e) {
-    console.log(e);
+    null;
   }
+  removeLoadingPage();
 };

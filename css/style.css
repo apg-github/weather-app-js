@@ -1,6 +1,4 @@
-@import url(
-  https://fonts.googleapis.com/css?family=Material+Icons|Lato:400|Ubuntu:300,400,500,500i&subset=latin-ext
-);
+@import url(https://fonts.googleapis.com/css?family=Material+Icons|Lato:400|Ubuntu:300,400,500,500i&subset=latin-ext);
 @-ms-viewport {
   width: device-width;
 }
@@ -334,7 +332,7 @@ template {
 }
 body {
   font-family: Lato, sans-serif;
-  background-color: #f8f8f8;
+  background-color: #02020221;
 }
 body.loading div.loading {
   display: flex;
@@ -358,7 +356,7 @@ h2 {
 }
 .btn {
   border-radius: 8px;
-  background-color: #ffc200;
+  background-color: #4b4949;
   border: 1px solid transparent;
   color: #fff;
   align-items: center;
@@ -428,7 +426,7 @@ div.loading {
 }
 header {
   width: 100%;
-  background-color: rgb(103, 139, 196);
+  background-color: rgb(128, 129, 134);
   box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
 }
 header .container {
