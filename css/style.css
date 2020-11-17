@@ -444,7 +444,8 @@ header .logo {
   font-style: italic;
 }
 header .logo img {
-  width: 45px;
+  width: 55px;
+  padding-right: 1rem;
 }
 .weather__forecast li .temperature,
 .weather__info .temperature {
