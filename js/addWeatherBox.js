@@ -5,8 +5,6 @@ export const addWeatherBox = (data, name) => {
   const clonedWeatherBox = originWeatherBox.cloneNode(true);
   clonedWeatherBox.hidden = false;
 
-  console.log(clonedWeatherBox.children[1].children[2]);
-
   clonedWeatherBox.querySelector("button").addEventListener("click", () => {
     clonedWeatherBox.remove();
   });
