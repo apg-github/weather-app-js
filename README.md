@@ -1,5 +1,5 @@
 # weather-app-js
-## !! Make sure you have disabled your ad blocking software while looking for online version. !!
+## Make sure you have disabled your ad blocking software while looking for online version. !!
 
 Weather app is using three external API's to gain everything it needs. 
 
@@ -18,7 +18,7 @@ Localhost site will be builded and served
 * `darksky.net` to gain weather forecast data using longitude and latitude
 * `graphhopper.com` to gain weather forecast from input value that user provide
 
-## Knows bugs:
+## Known bugs:
 * accessing site with adblocking software make application unusable
 * workaround for CORS security with herokuapp sometimes gets laggy or unavailable, which makes api responses very slow
 
