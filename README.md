@@ -34,7 +34,7 @@ Localhost site will be builded and served
 
 ___
 
-![ScreenShot](https://ibb.co/9pzt4L7)
+![ScreenShot](https://i.ibb.co/GdBTMLq/apg-weather-apg-mobile.png)
 
 
 
