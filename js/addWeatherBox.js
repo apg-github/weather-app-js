@@ -22,14 +22,16 @@ export const addWeatherBox = (data, name) => {
     ".weather__details"
   );
 
-  (weatherForecastDetails.querySelector(".pressure__value").innerHTML =
-    data.currently.pressure + " hPa"),
-    (weatherForecastDetails.querySelector(".pressure__value").innerHTML =
+  weatherForecastDetails.querySelector(".pressure__value").innerHTML =
+    Math.floor(data.currently.pressure) + " hPa"
+
+  weatherForecastDetails.querySelector(".humidity__value").innerHTML =
       data.currently.humidity === 1
-        ? "100%"
-        : (data.currently.humidity * 100).toPrecision(2) + " %"),
-    (weatherForecastDetails.querySelector(".pressure__value").innerHTML =
-      data.currently.windSpeed + " m/s");
+        ? "100 %"
+        : (data.currently.humidity * 100).toPrecision(2) + " %"
+
+  weatherForecastDetails.querySelector(".wind-speed__value").innerHTML =
+      data.currently.windSpeed + " m/s"
 
   const nextDaysForecast = clonedWeatherBox.querySelector(".weather__forecast")
     .children;
