@@ -3,6 +3,8 @@
 
 Weather app is using three external API's to gain everything it needs. 
 
+Page is responsive and mobile friendly.
+
 To start an application locally type:
 ```
 npm install
