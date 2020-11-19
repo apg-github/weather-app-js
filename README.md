@@ -1,7 +1,9 @@
 # weather-app-js
-## Make sure you have disabled your ad blocking software while looking for online version. !!
+## Make sure you have disabled your ad blocking software while looking for online version.
 
-Weather app is using three external API's to gain everything it needs. 
+Live demo: https://apg-weather-app.netlify.app/
+
+Weather app is using three external API's to gain everything it needs.
 
 App is responsive and mobile friendly.
 
