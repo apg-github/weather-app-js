@@ -34,11 +34,11 @@ Localhost site will be builded and served
 * add window.navigation to access longitute and latitude of user browser when adblocking software is on
 
 ## Screenshots from desktop/mobile version of app:
-![ScreenShot](https://i.ibb.co/gjcTPmD/apg-weather-apg-desktop.png)
+![ScreenShot](https://i.ibb.co/rwMWh5y/apg-weather-apg-desktop.png)
 
 ___
 
-![ScreenShot](https://i.ibb.co/GdBTMLq/apg-weather-apg-mobile.png)
+![ScreenShot](https://i.ibb.co/SxJqZsm/apg-weather-apg-mobile.png)
 
 
 
