@@ -23,7 +23,7 @@ const locateUser = async () => {
     const { latitude, longitude, city } = ipLocationResponseJson;
 
     const weatherForecastResponse = await fetch(
-      `${darkSkyAPI}/${darkSkyApiKey}/${latitude},${longitude}?units=si&exclude=minutely,hourly,alerts,flags&lang=en`
+      `https://thingproxy.freeboard.io/fetch/https://api.darksky.net/forecast/${darkSkyApiKey}/${latitude},${longitude}?units=si&exclude=minutely,hourly,alerts,flags&lang=en`
     );
 
     const weatherForecastResponseJson = await weatherForecastResponse.json();

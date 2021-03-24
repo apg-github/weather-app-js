@@ -1,6 +1,6 @@
 import { addWeatherBox } from "./addWeatherBox";
 import { addLoadingPage, removeLoadingPage } from "./functions";
-import { darkSkyApiKey, darkSkyAPI, graphHopperAPI } from "./utils";
+import { darkSkyApiKey, graphHopperAPI } from "./utils";
 
 export const newCityForecast = async () => {
   const input = document.querySelector("#search").value;
@@ -31,14 +31,14 @@ export const newCityForecast = async () => {
     const { point, name } = specifiedPlaceApiResponseJson.hits[0];
 
     const weatherForecastResponse = await fetch(
-      `${darkSkyAPI}/${darkSkyApiKey}/${point.lat},${point.lng}?units=si&exclude=minutely,hourly,alerts,flags&lang=en`
+      `https://thingproxy.freeboard.io/fetch/https://api.darksky.net/forecast/${darkSkyApiKey}/${point.lat},${point.lng}?units=si&exclude=minutely,hourly,alerts,flags&lang=en`
     );
 
     const weatherForecastResponseJson = await weatherForecastResponse.json();
 
     addWeatherBox(weatherForecastResponseJson, name);
   } catch (e) {
-    null;
+    console.error("Error occured while retrieving new forecast.");
   }
   removeLoadingPage();
 };
