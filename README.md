@@ -1,7 +1,11 @@
 # weather-app-js
-## Make sure you have disabled your ad blocking software while looking for online version. !!
+## Make sure you have disabled your ad blocking software while looking for online version.
 
-Weather app is using three external API's to gain everything it needs. 
+Live demo: https://apg-weather-app.netlify.app/
+
+Weather app is using three external API's to gain everything it needs.
+
+App is responsive and mobile friendly.
 
 To start an application locally type:
 ```
@@ -30,11 +34,11 @@ Localhost site will be builded and served
 * add window.navigation to access longitute and latitude of user browser when adblocking software is on
 
 ## Screenshots from desktop/mobile version of app:
-![ScreenShot](https://lh4.googleusercontent.com/HqDf1snrSzmonaM8gA6bOIFz44xo_TptMaTXaX7c6akjvWlTg8-JT2L-WACZsdnAKLYv2NyZuFUvn56dKxrk=w2560-h1303-rw)
+![ScreenShot](https://i.ibb.co/rwMWh5y/apg-weather-apg-desktop.png)
 
 ___
 
-![ScreenShot](https://lh5.googleusercontent.com/wcLzcUy8_6L923_gJr3GsTYqrV_1-0-Fm7cQb71cGoCB132gudOzunn0bRt2V1Tb8zvfVFMrrtGjiPT6ZmZ-=w2559-h1303-rw)
+![ScreenShot](https://i.ibb.co/SxJqZsm/apg-weather-apg-mobile.png)
 
 
 
