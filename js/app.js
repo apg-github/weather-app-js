@@ -40,6 +40,11 @@ const locateUser = async () => {
     //   }
     // }
 
+    // const weatherForecastResponse = await fetch(
+    //   `https://thingproxy.freeboard.io/fetch/https://api.darksky.net/forecast/${darkSkyApiKey}/${latitude},${longitude}?units=si&exclude=minutely,hourly,alerts,flags&lang=en`
+    // );
+
+
     const weatherForecastResponse = await fetch(
       `https://thingproxy.freeboard.io/fetch/https://api.darksky.net/forecast/${darkSkyApiKey}/${latitude},${longitude}?units=si&exclude=minutely,hourly,alerts,flags&lang=en`
     );
@@ -49,16 +54,14 @@ const locateUser = async () => {
     const { currently, daily } = weatherForecastResponseJson;
 
     document.querySelector(".city__name").innerHTML = city;
-    document.querySelector(".pressure__value").innerHTML =
-      Math.floor(currently.pressure) + " hPa";
+    document.querySelector(".pressure__value").innerHTML = Math.floor(currently.pressure) + " hPa";
 
     currently.humidity === 1
       ? (document.querySelector(".humidity__value").innerHTML = "100%")
       : (document.querySelector(".humidity__value").innerHTML =
           (currently.humidity * 100).toPrecision("2") + " %");
 
-    document.querySelector(".wind-speed__value").innerHTML =
-      currently.windSpeed + " m/s";
+    document.querySelector(".wind-speed__value").innerHTML = currently.windSpeed + " m/s";
 
     const forecastWeatherIcons = [
       currently.icon,
@@ -98,9 +101,7 @@ window.addEventListener("DOMContentLoaded", () => {
   const originBoxCloseButton = document.querySelector("#origin-box-delete");
 
   addNewPlaceButton.addEventListener("click", () => {
-    searchBox.hasAttribute("hidden")
-      ? searchBox.removeAttribute("hidden")
-      : null;
+    searchBox.hasAttribute("hidden") ? searchBox.removeAttribute("hidden") : null;
     searchInput.focus();
   });
 
