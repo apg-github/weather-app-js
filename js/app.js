@@ -1,7 +1,6 @@
 import {
   darkSkyApiKey,
   ipLocationAPI,
-  darkSkyAPI,
   updateTemp as updateTemperature,
   updateWeekdays,
   updateImages,
@@ -9,6 +8,8 @@ import {
 import { addLoadingPage, removeLoadingPage } from "./functions";
 import { retrieveUserGeolocationFromBrowser } from "./locationFromBrowser";
 import { newCityForecast } from "./newForecast";
+
+const nodeFetch = require("node-fetch");
 
 const userGeo = retrieveUserGeolocationFromBrowser();
 
@@ -20,14 +21,31 @@ const locateUser = async () => {
 
     const ipLocationResponseJson = await ipLocationResponse.json();
 
-    const { latitude, longitude, city } = ipLocationResponseJson;
+    let { latitude, longitude, city } = ipLocationResponseJson;
+
+    // if (userGeo.latitude && userGeo.longitude) {
+    //   try {
+    //     latitude = userGeo.latitude.toPrecision(6);
+    //     longitude = userGeo.longitude.toPrecision(6);
+
+    //     const reverseGeocoding = await fetch(
+    //       `https://us1.locationiq.com/v1/reverse.php?key=pk.67351fa88cded971aff48cb2fede88d2&lat=${latitude}&lon=${longitude}&format=json`
+    //     );
+    //     reverseGeocodingJson = await reverseGeocoding.json();
+    //     console.log(reverseGeocodingJson);
+    //   } catch {
+    //     (e) => {
+    //       console.log(e);
+    //     };
+    //   }
+    // }
 
     const weatherForecastResponse = await fetch(
       `https://thingproxy.freeboard.io/fetch/https://api.darksky.net/forecast/${darkSkyApiKey}/${latitude},${longitude}?units=si&exclude=minutely,hourly,alerts,flags&lang=en`
     );
 
     const weatherForecastResponseJson = await weatherForecastResponse.json();
-
+    console.log(weatherForecastResponseJson);
     const { currently, daily } = weatherForecastResponseJson;
 
     document.querySelector(".city__name").innerHTML = city;

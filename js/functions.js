@@ -1,4 +1,4 @@
-export const addLoadingPage = () => {
+export const addLoadingPage = async () => {
   document.getElementsByTagName("body")[0].classList.add("loading");
 };
 
