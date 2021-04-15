@@ -12,18 +12,12 @@ Weather app is using three external API's to gain everything it needs.
 
 App is responsive and mobile friendly.
 
-To start an application locally type:
-```
-npm install
-```
-```
-npm run build
-```
-```
-npm run start
-```
+## Screenshots from desktop/mobile version of app:
+![ScreenShot](https://i.ibb.co/rwMWh5y/apg-weather-apg-desktop.png)
 
-Localhost site will be builded and served
+___
+
+![ScreenShot](https://i.ibb.co/SxJqZsm/apg-weather-apg-mobile.png)
 
 ## Application uses three apis:
 * `ipgeolocation.io` to gain longitude and latitude from IP address
@@ -37,15 +31,6 @@ Localhost site will be builded and served
 ## TODO:
 * store user favorite location in LocalStorage and fetch data for it on entrance
 * add window.navigation to access longitute and latitude of user browser when adblocking software is on
-
-## Screenshots from desktop/mobile version of app:
-![ScreenShot](https://i.ibb.co/rwMWh5y/apg-weather-apg-desktop.png)
-
-___
-
-![ScreenShot](https://i.ibb.co/SxJqZsm/apg-weather-apg-mobile.png)
-
-
 
 
 
