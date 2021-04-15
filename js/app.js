@@ -50,7 +50,7 @@ const locateUser = async () => {
     );
 
     const weatherForecastResponseJson = await weatherForecastResponse.json();
-    console.log(weatherForecastResponseJson);
+
     const { currently, daily } = weatherForecastResponseJson;
 
     document.querySelector(".city__name").innerHTML = city;
