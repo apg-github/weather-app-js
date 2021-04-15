@@ -1,4 +1,9 @@
 # weather-app-js
+```diff
+- CORS-ANYWHERE IS DOWN, live demo does not work correctly.
+
+```
+
 ## Make sure you have disabled your ad blocking software while looking for online version.
 
 Live demo: https://apg-weather-app.netlify.app/
